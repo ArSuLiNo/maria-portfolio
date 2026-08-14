@@ -323,8 +323,10 @@ em { font-style: italic; }
 .case__sub {
   font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
   color: var(--accent);
-  max-width: 46ch;
-  margin: .75rem 0 2.75rem;
+  /* Wide enough that a short tail word doesn't drop to a line of its own. */
+  max-width: 62ch;
+  text-wrap: pretty;
+  margin: 1.5rem 0 2.75rem;
 }
 
 .case__blocks {
@@ -395,8 +397,9 @@ em { font-style: italic; }
 .calendar__title {
   font-family: var(--serif);
   font-size: clamp(1.4rem, 1.2rem + .6vw, 1.75rem);
+  line-height: 1.15;
   letter-spacing: -0.01em;
-  margin-bottom: .5rem;
+  margin-bottom: .85rem;
 }
 .calendar__note {
   margin: 0 0 1.5rem;
@@ -798,8 +801,12 @@ em { font-style: italic; }
 .case__visual img.anim.is-in,
 .gallery img.anim.is-in { transform: none; }
 
-/* Case title carries the most weight, so it moves the furthest. */
+/* Case title carries the most weight, so it moves the furthest. The .is-in
+   reset has to be repeated here: it sits earlier in the file at equal
+   specificity, so without this the title stays shifted down for good and
+   collides with the subtitle underneath. */
 .case__title.anim { transform: translateY(28px); }
+.case__title.anim.is-in { transform: none; }
 
 /* Paper grain: one tiny inline SVG, fixed so it reads as surface, not scroll. */
 body::after {
