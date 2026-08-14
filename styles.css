@@ -731,17 +731,71 @@ em { font-style: italic; }
 }
 .footer p { margin: 0; }
 
-/* ── reveal animation ────────────────────────────────────── */
+/* ── motion ──────────────────────────────────────────────── */
 
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity .8s cubic-bezier(.2,.7,.3,1) var(--d, 0s),
-              transform .8s cubic-bezier(.2,.7,.3,1) var(--d, 0s);
+:root { --ease: cubic-bezier(.16,.84,.34,1); }
+
+/* Scroll progress hairline. */
+.progress {
+  position: fixed; inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--rust);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 200;
+  will-change: transform;
 }
-.reveal.is-in { opacity: 1; transform: none; }
+
+/* Base reveal. --i staggers siblings inside a group, --d offsets hero items. */
+.anim {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity .75s var(--ease) calc(var(--d, 0s) + var(--i, 0) * .07s),
+    transform .75s var(--ease) calc(var(--d, 0s) + var(--i, 0) * .07s);
+}
+.anim.is-in { opacity: 1; transform: none; }
+
+/* Images get a touch of scale so they settle rather than just fade. */
+.case__visual img.anim,
+.gallery img.anim {
+  transform: translateY(20px) scale(1.02);
+  transition:
+    opacity .9s var(--ease) calc(var(--i, 0) * .07s),
+    transform .9s var(--ease) calc(var(--i, 0) * .07s);
+}
+.case__visual img.anim.is-in,
+.gallery img.anim.is-in { transform: none; }
+
+/* Case title carries the most weight, so it moves the furthest. */
+.case__title.anim { transform: translateY(28px); }
+
+/* Paper grain: one tiny inline SVG, fixed so it reads as surface, not scroll. */
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 150;
+  opacity: .22;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+}
+
+/* Hover polish */
+.metric, .step, .calendar .table-wrap { transition: border-color .35s, transform .35s; }
+.step:hover { border-color: var(--rust); transform: translateY(-3px); }
+.logos figure img { transition: transform .45s var(--ease); }
+.logos figure:hover img { transform: scale(1.06); }
+.gallery img { transition: filter .5s, transform .6s var(--ease); }
+.gallery img:hover { transform: scale(1.02); }
+.project__shots img { transition: transform .5s var(--ease); }
+.project:hover .project__shots img:first-child { transform: scale(1.02); }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .btn:hover, .project:hover { transform: none; }
+  .anim,
+  .case__visual img.anim,
+  .gallery img.anim { opacity: 1; transform: none; transition: none; }
+  .progress { display: none; }
+  .btn:hover, .project:hover, .step:hover { transform: none; }
+  .logos figure:hover img, .gallery img:hover,
+  .project:hover .project__shots img:first-child { transform: none; }
 }
