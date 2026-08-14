@@ -468,14 +468,13 @@ em { font-style: italic; }
 .steps {
   list-style: none; margin: 0; padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: clamp(1rem, 1.8vw, 1.75rem);
 }
 .step {
-  background: var(--paper-warm);
-  padding: 2.5rem 1.75rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: clamp(2rem, 3vw, 2.75rem) clamp(1.5rem, 2vw, 2rem);
   text-align: center;
 }
 .step__num {
