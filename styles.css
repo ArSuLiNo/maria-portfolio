@@ -377,6 +377,104 @@ em { font-style: italic; }
 .case__visual--three img { aspect-ratio: 3 / 4; object-fit: cover; object-position: top; }
 .case__visual--two img { aspect-ratio: 16 / 11; object-fit: contain; padding: .5rem; }
 
+/* ── content calendars ───────────────────────────────────── */
+
+.calendars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.calendar__title {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 1.2rem + .6vw, 1.75rem);
+  letter-spacing: -0.01em;
+  margin-bottom: .5rem;
+}
+.calendar__note {
+  margin: 0 0 1.5rem;
+  font-size: .95rem;
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); }
+
+.cal {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .925rem;
+  background: var(--paper);
+}
+
+.cal th {
+  font-family: var(--mono);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: .85rem 1rem;
+  background: var(--paper-warm);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.cal td {
+  padding: .8rem 1rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  color: var(--ink-soft);
+}
+.cal tbody tr:last-child td { border-bottom: none; }
+.cal tbody tr:hover td { background: color-mix(in srgb, var(--rust) 4%, transparent); }
+
+/* Date column: fixed rhythm, never wraps mid-label. */
+.cal td:first-child {
+  font-family: var(--mono);
+  font-size: .78rem;
+  letter-spacing: .02em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+/* Platform column: reads as a label, not prose. */
+.cal td:nth-child(2) {
+  font-size: .85rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Below this width a three-column table stops being readable, so each row
+   becomes its own stacked block with inline labels. */
+@media (max-width: 640px) {
+  .table-wrap { overflow-x: visible; border: none; }
+  .cal, .cal tbody, .cal tr, .cal td { display: block; width: 100%; }
+  .cal thead { display: none; }
+
+  .cal tr {
+    border: 1px solid var(--line);
+    padding: 1rem;
+    margin-bottom: .75rem;
+    background: var(--paper);
+  }
+  .cal td { border: none; padding: .15rem 0; }
+  .cal tbody tr:hover td { background: none; }
+
+  .cal td[data-l="Content"] { margin-top: .5rem; color: var(--ink); }
+  .cal td[data-l="Date"],
+  .cal td[data-l="Platform"] {
+    display: inline-block;
+    width: auto;
+    white-space: normal;
+  }
+  .cal td[data-l="Date"]::after {
+    content: "·";
+    margin: 0 .5rem;
+    color: var(--line);
+  }
+}
+
 .case__caption {
   font-size: .85rem;
   color: var(--muted);
