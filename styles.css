@@ -3,16 +3,18 @@
    ============================================================ */
 
 :root {
-  --paper:      #F7F5F0;
-  --paper-warm: #EFEBE3;
-  --ink:        #16150F;
-  --ink-soft:   #3B3931;
-  --muted:      #6E6A5E;
-  --line:       #D9D4C8;
+  /* Warmer, more saturated paper — the old one was near-grey and read as a
+     spec sheet. */
+  --paper:      #F6EEE2;
+  --paper-warm: #EDE2D1;
+  --ink:        #1A1712;
+  --ink-soft:   #453D33;
+  --muted:      #7A6E5E;
+  --line:       #D6C7B0;
   --rust:       #C7401F;
-  --rust-deep:  #90341F;
-  --dark:       #14130F;
-  --dark-soft:  #1E1C17;
+  --rust-deep:  #9E2F14;
+  --dark:       #17150F;
+  --dark-soft:  #221E16;
 
   --lime:       #C7F03C;  /* only used on the dark case, from Scimatch */
 
@@ -708,16 +710,27 @@ em { font-style: italic; }
 
 /* ── contact ─────────────────────────────────────────────── */
 
-.contact { text-align: center; }
+/* Colour as a plane, not as tinted small text — the page ends on a full
+   accent field instead of another sheet of paper. */
+.contact {
+  text-align: center;
+  background: var(--rust);
+  color: #FDF6EC;
+  max-width: none;
+}
+.contact > * { max-width: var(--content); margin-inline: auto; }
+.contact .eyebrow { color: color-mix(in srgb, #FDF6EC 65%, transparent); }
+.contact__title em { color: #F6D9A0; }
+
 .contact__title {
   font-family: var(--serif);
   font-size: clamp(2.25rem, 1.2rem + 4.4vw, 5rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
   text-wrap: balance;
-  margin-bottom: 3rem;
+  max-width: 17ch;
+  margin: 0 auto 3rem;
 }
-.contact__title em { color: var(--rust); }
 
 .contact__links {
   display: flex; flex-wrap: wrap; justify-content: center;
@@ -726,19 +739,19 @@ em { font-style: italic; }
 .contact__links a {
   text-decoration: none;
   font-size: clamp(1rem, .95rem + .3vw, 1.15rem);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid color-mix(in srgb, #FDF6EC 40%, transparent);
   padding-bottom: .3rem;
   transition: border-color .25s, color .25s;
 }
-.contact__links a:hover { color: var(--rust); border-bottom-color: var(--rust); }
+.contact__links a:hover { color: #F6D9A0; border-bottom-color: #F6D9A0; }
 
 /* ── footer ──────────────────────────────────────────────── */
 
 .footer {
   display: flex; flex-wrap: wrap; gap: .5rem 2rem;
   justify-content: space-between;
-  padding: 2rem 0;
-  max-width: var(--content);
+  padding: 2rem var(--gutter);
+  max-width: var(--maxw);
   margin-inline: auto;
   border-top: 1px solid var(--line);
   font-family: var(--mono);
