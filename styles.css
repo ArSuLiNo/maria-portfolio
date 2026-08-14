@@ -473,10 +473,15 @@ em { font-style: italic; }
   background: var(--line);
   border: 1px solid var(--line);
 }
-.step { background: var(--paper-warm); padding: 2.25rem 1.75rem; }
+.step {
+  background: var(--paper-warm);
+  padding: 2.5rem 1.75rem;
+  text-align: center;
+}
 .step__num {
+  display: block;
   font-family: var(--mono);
-  font-size: .7rem;
+  font-size: .75rem;
   letter-spacing: .15em;
   color: var(--rust);
 }
@@ -487,7 +492,13 @@ em { font-style: italic; }
   letter-spacing: -0.01em;
   margin: 1rem 0 .85rem;
 }
-.step p { margin: 0; font-size: 1rem; color: var(--ink-soft); }
+.step p {
+  margin: 0 auto;
+  max-width: 30ch;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
 
 /* ── craft ───────────────────────────────────────────────── */
 
