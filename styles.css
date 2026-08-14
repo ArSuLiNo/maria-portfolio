@@ -230,7 +230,6 @@ em { font-style: italic; }
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 32% center;
-  filter: grayscale(1) contrast(1.05);
 }
 .hero__figure figcaption {
   font-family: var(--mono);
@@ -273,6 +272,49 @@ em { font-style: italic; }
   letter-spacing: -0.02em;
 }
 .metric p { margin: 0; font-size: .975rem; color: var(--muted); line-height: 1.5; }
+
+/* ── work reel ───────────────────────────────────────────── */
+
+.reel {
+  overflow: hidden;
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  border-block: 1px solid var(--line);
+  background: var(--paper-warm);
+}
+
+.reel__track {
+  display: flex;
+  width: max-content;
+  gap: clamp(.75rem, 1.4vw, 1.25rem);
+  animation: reel 48s linear infinite;
+}
+.reel:hover .reel__track { animation-play-state: paused; }
+
+.reel__set {
+  display: flex;
+  gap: clamp(.75rem, 1.4vw, 1.25rem);
+  padding-right: clamp(.75rem, 1.4vw, 1.25rem);
+}
+
+.reel__set img {
+  height: clamp(200px, 22vw, 320px);
+  width: auto;
+  max-width: none;
+  object-fit: cover;
+  flex: none;
+}
+
+/* Two identical sets sit side by side; shifting exactly half the track
+   makes the loop seamless. */
+@keyframes reel {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel { overflow-x: auto; }
+  .reel__track { animation: none; }
+}
 
 /* ── cases ───────────────────────────────────────────────── */
 
@@ -630,10 +672,8 @@ em { font-style: italic; }
 .gallery img {
   width: 100%; aspect-ratio: 3 / 4;
   object-fit: cover;
-  filter: grayscale(1);
-  transition: filter .5s;
+  transition: transform .6s var(--ease);
 }
-.gallery img:hover { filter: grayscale(0); }
 
 .gallery__note {
   font-family: var(--mono);
@@ -785,7 +825,6 @@ body::after {
 .step:hover { border-color: var(--rust); transform: translateY(-3px); }
 .logos figure img { transition: transform .45s var(--ease); }
 .logos figure:hover img { transform: scale(1.06); }
-.gallery img { transition: filter .5s, transform .6s var(--ease); }
 .gallery img:hover { transform: scale(1.02); }
 .project__shots img { transition: transform .5s var(--ease); }
 .project:hover .project__shots img:first-child { transform: scale(1.02); }
