@@ -230,6 +230,7 @@ em { font-style: italic; }
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 32% center;
+  filter: grayscale(1) contrast(1.05);
 }
 .hero__figure figcaption {
   font-family: var(--mono);
@@ -629,7 +630,10 @@ em { font-style: italic; }
 .gallery img {
   width: 100%; aspect-ratio: 3 / 4;
   object-fit: cover;
+  filter: grayscale(1);
+  transition: filter .5s;
 }
+.gallery img:hover { filter: grayscale(0); }
 
 .gallery__note {
   font-family: var(--mono);
@@ -781,7 +785,7 @@ body::after {
 .step:hover { border-color: var(--rust); transform: translateY(-3px); }
 .logos figure img { transition: transform .45s var(--ease); }
 .logos figure:hover img { transform: scale(1.06); }
-.gallery img { transition: transform .6s var(--ease); }
+.gallery img { transition: filter .5s, transform .6s var(--ease); }
 .gallery img:hover { transform: scale(1.02); }
 .project__shots img { transition: transform .5s var(--ease); }
 .project:hover .project__shots img:first-child { transform: scale(1.02); }
